@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Gimatria calculato</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <style>
+  body{
+   background-image: url("gimatria.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+   text-align: center;
+  }
+  #inputChar{
+	font-size: 30px;
+	font-family: monospace;
+	width: 50%;
+	height: 10%;
+	padding: 1%;
+  }
+  #resultValue{
+	font-size: 30px;
+	font-family: monospace;
+	background: transparent;
+	border: none;
+	dir: rtl;
+	white-space:pre-line;
+  }
+  </style>
+</head>
+<body dir="rtl">
+<div id = "centered">
+<h1> הקלד בעברית לחישוב הערך הגימטרי  </h1>
+<br><br>
+<form dir="rtl"> 
+<input type="text" id="inputChar" dir="rtl" width="250px"> 
+<br>
+<input type="text" id="resultValue" dir = "rtl" readonly>
+<br>
+<input type="button" id="resetButton" value="התחל מחדש" onclick=reset()>
+
+</form>
+
+<script >
+var currentValue= 0;
+ 
+function getChar(event){
+<!--if(event.which !=0 && event.charCode !=0)-->
+	return String.fromCharCode(event.charCode);
+<!--else return null;-->
+}
+
+function calcValue(code){
+var value;
+switch(true)
+{
+	case (1488 <= code) && (code <= 1497):
+		value = code - 1487;
+		break;
+	case (code == 1499) || (code == 1498):
+		value = 20;
+		break;
+	case (code == 1500):
+		value =  30;
+		break;
+	case (code == 1501) || (code == 1502):
+		value =  40;
+		break;
+	case (code == 1504 || code == 1503):
+		value =  50;
+		break;
+	case (code == 1505):
+		value =  60;
+		break;
+	case (code == 1506):
+		value =  70;
+		break;
+	case (code == 1507) || (code == 1508):
+		value =  80;
+		break;
+	case (code == 1509) || (code == 1510):
+		value =  90;
+		break;
+	case (code >= 1511) && (code <=1514):
+		value = (code - 1510)*100;
+		break;
+	default:
+		value = 0;
+		
+}
+return value
+}
+
+document.getElementById("inputChar").onkeypress=function(event){
+var pressedCharCode = event.charCode || event.which;
+if( !pressedCharCode  ) return false;
+var calcValueResult = calcValue(pressedCharCode);
+if(calcValueResult == 0)
+	return false;
+currentValue += calcValue(pressedCharCode); 
+document.getElementById("resultValue").value= "הערך הגימטריה הוא: " + currentValue;
+return true;
+}
+</script>
+</body>
+</html>
